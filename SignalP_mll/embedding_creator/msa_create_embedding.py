@@ -32,7 +32,7 @@ def trans_data_msa(str_array):
 
     return result
 
-def trans_data_msa_in_batches(str_array, split=100, path="./embedding/train_feature.npy"):
+def trans_data_msa_in_batches(str_array, split=100, path="../embedding/train_feature.npy"):
     if(os.path.exists(path)):
         embedding_result = np.load(path)
         print("MSA feature shape:")
@@ -65,7 +65,7 @@ def createDatasetEmbedding(data_path, save_path):
     features = trans_data_msa_in_batches(raw_data, path=save_path)
 
 
-def Round(deci=3 ,path="./embedding/train_feature.npy"):
+def Round(deci=3 ,path="../embedding/train_feature.npy"):
 
     embedding_result = np.round(np.load(path), decimals=deci)
 
@@ -75,7 +75,7 @@ def Round(deci=3 ,path="./embedding/train_feature.npy"):
 
 if __name__ == '__main__':
 
-    createDatasetEmbedding('../data/data_list.txt', "./embedding/train_feature.npy")
-    createDatasetEmbedding('../test_data/data_list.txt', "./embedding/test_feature.npy")
-    # Round(3,"./embedding/train_feature.npy" )
-    # Round(3,"./embedding/test_feature.npy" )
+    createDatasetEmbedding('../data/data_list.txt', "../embedding/train_feature.npy")
+    createDatasetEmbedding('../test_data/data_list.txt', "../embedding/test_feature.npy")
+    # Round(3,"../embedding/train_feature.npy" )
+    # Round(3,"../embedding/test_feature.npy" )
