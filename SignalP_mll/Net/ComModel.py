@@ -1,12 +1,12 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from Net.LSTM import *
-from Net.CNN import *
+from LSTM import *
+from CNN import *
 from torch.autograd import Variable
 from torch.nn import Parameter
 import numpy as np
-from Net.CRF import CRF
+from CRF import CRF
 embedding_feature_dim_msa = 1280
 embedding_feature_dim_pro = 1024
 
