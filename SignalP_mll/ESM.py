@@ -695,7 +695,8 @@ if __name__ == '__main__':
     # LSTM
     lstm_hidden_dim=128
 
-    config = {'embedding_size':20, 'vocab_size': 21}
+    config = {'embedding_size':148, 'vocab_size': 21, 'dropout_rate':0.5,
+              'feature_size': feature_size, 'activation_function_type': "Sigmoid", 'kernel_size':10}
 
     lstm_config = {'dropout_rate': 0.2, 'input_dim': 128+4,
                    'hidden_dim': lstm_hidden_dim, 'output_dim': len(dic.keys()), 'num_layers':1, 'max_text_len': max_len,

@@ -122,7 +122,8 @@ class CSLoss(nn.Module):
     def forward(self, x, target):
         x = x.reshape(-1, len(PositionSpecificLetter.values()))
         target = target.reshape(-1)
-
+        x = x.to(device=torch.device('cuda' if torch.cuda.is_available() else 'cpu'))
+        target = target.to(device=torch.device('cuda' if torch.cuda.is_available() else 'cpu'))
         return F.cross_entropy(x, target)
 
 

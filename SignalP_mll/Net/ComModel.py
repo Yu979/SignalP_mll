@@ -1,12 +1,12 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from LSTM import *
-from CNN import *
+from Net.LSTM import *
+from Net.CNN import *
 from torch.autograd import Variable
 from torch.nn import Parameter
 import numpy as np
-from CRF import CRF
+from Net.CRF import CRF
 embedding_feature_dim_msa = 1280
 embedding_feature_dim_pro = 1024
 
@@ -30,7 +30,6 @@ class TargetModel(nn.Module):
         self.max_len = config1['max_text_len']
 
         self.embedding = nn.Embedding(num_embeddings=config['vocab_size'], embedding_dim=config['embedding_size'])
-
         self.ef1 = 256
         self.ef2 = 72
         self.ef3 = 9
@@ -59,7 +58,7 @@ class TargetModel(nn.Module):
         self.fcn2= nn.Linear(self.ef2, self.ef3)
 
         self.fcn3= nn.Linear(config1['max_text_len'], 1)
-        self.fcn4 = nn.Sequential(nn.Linear(self.ef1*self.ef3+self.ef6+self.ef6, self.ef4), nn.ReLU())
+        self.fcn4 = nn.Sequential(nn.Linear(self.ef1*self.ef3+self.ef6, self.ef4), nn.ReLU())
 
         self.fcn5 = NormedLinear(self.ef4, 4)
 
