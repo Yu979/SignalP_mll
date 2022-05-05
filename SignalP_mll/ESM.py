@@ -832,7 +832,7 @@ if __name__ == '__main__':
 
         # test
         model.eval()
-        if(epoch+1 > 20):
+        if(epoch+1 > 200):
             if ((epoch + 1) % 1 == 0 ):
 
                 best_mcc = test(model, test_loader, out_f, out_f_all_acc, out_f_ad,
