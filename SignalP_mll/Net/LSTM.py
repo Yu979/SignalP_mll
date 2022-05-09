@@ -43,7 +43,7 @@ class BLSTM(nn.Module):
                                dropout=config['dropout_rate'],
                                batch_first=True,
                                bidirectional=config['use_blstm'])
-        self.batch_norm = nn.BatchNorm1d(2 * self.hidden_dim)
+        self.batch_norm = nn.BatchNorm1d(self.hidden_dim)
 
         self.start_dim = int(self.num_directions * self.hidden_dim * self.max_text_len )
 
