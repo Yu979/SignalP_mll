@@ -693,7 +693,7 @@ if __name__ == '__main__':
 
 
     # LSTM
-    lstm_hidden_dim=128
+    lstm_hidden_dim = 64
 
     config = {'embedding_size':148, 'vocab_size': 21, 'dropout_rate':0.5,
               'feature_size': feature_size, 'activation_function_type': "Sigmoid", 'kernel_size':10}
