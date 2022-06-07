@@ -283,6 +283,8 @@ def create_test_files_cls():
 
     with open(filename_list[0], 'r') as fastaf:
         for line in fastaf:
+
+
             count+=1
             if count==1:
                 name = line.split('|')[2]

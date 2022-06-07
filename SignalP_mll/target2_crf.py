@@ -436,7 +436,7 @@ def createTestData(data_path='./test_data/data_list.txt', label_path="./test_dat
     kingdoms= np.array(kingdom_list)
     aas = np.array(aa_list)
 
-    X = np.concatenate((X,kingdoms, features), axis=1)
+    X = np.concatenate((X, kingdoms, features), axis=1)
     labels = labels.reshape(labels.shape[0], 1)
     labels = np.concatenate((labels, aas), axis=1)
     return X, labels

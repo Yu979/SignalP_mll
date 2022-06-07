@@ -2,6 +2,9 @@ from sklearn.preprocessing import label_binarize
 import matplotlib.pyplot as plt
 import numpy as np
 from target2_crf import *
+import sys
+
+sys.path.append('./Net')
 
 cls_names=['LIPO', 'NO_SP', 'SP', 'TAT']
 metrics=['acc', 'F1_score', 'MCC']
@@ -349,7 +352,7 @@ if __name__ == '__main__':
     X_test_cls = {'EUKARYA':[],'ARCHAEA':[],'POSITIVE':[],'NEGATIVE':[] }
     labels_test_cls = {'EUKARYA': [], 'ARCHAEA': [], 'POSITIVE': [], 'NEGATIVE': []}
     m="MCC"
-    data_files, target_files, kingdom_files, aa_files = create_test_files_cls()
+    data_files, target_files, kingdom_files, aa_files, _ = create_test_files_cls()
     for key in X_test_cls.keys():
         m = "MCC"
         print(key+" MCC:")

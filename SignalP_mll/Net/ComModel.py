@@ -28,7 +28,7 @@ class TargetModel(nn.Module):
 
         self.num_classes = 20
         self.max_len = config1['max_text_len']
-
+        self.attention = config1['attention']
         self.embedding = nn.Embedding(num_embeddings=config['vocab_size'], embedding_dim=config['embedding_size'])
         self.ef1 = 256
         self.ef2 = 72
@@ -53,9 +53,14 @@ class TargetModel(nn.Module):
         self.lstm=BLSTM(config1)
 
         # att weight layer
-        self.fcn1= nn.Linear(self.ef1, self.ef2)
-        self.att_act= nn.Tanh()
-        self.fcn2= nn.Linear(self.ef2, self.ef3)
+        if self.attention:
+            self.fcn1 = nn.Linear(128, 128)
+            self.att_act = nn.Tanh()
+            self.fcn2 = nn.Linear(128, self.ef3)
+        else:
+            self.fcn1= nn.Linear(self.ef1, self.ef2)
+            self.att_act= nn.Tanh()
+            self.fcn2= nn.Linear(self.ef2, self.ef3)
 
         self.fcn3= nn.Linear(config1['max_text_len'], 1)
         self.fcn4 = nn.Sequential(nn.Linear(self.ef1*self.ef3+self.ef6, self.ef4), nn.ReLU())
@@ -93,12 +98,19 @@ class TargetModel(nn.Module):
 
         # used for predicting cs label
         cs_model = input2
+        if self.attention:
+            input = input.unsqueeze(dim=2)
+            input = torch.repeat_interleave(input, repeats=self.ef3, dim=2)
+            input = F.softmax(input, dim=1)
+            input2 = input2.unsqueeze(dim=2)
+            input2 = torch.repeat_interleave(input2, repeats=self.ef4, dim=1)
+        else:
+            input = input.unsqueeze(dim=3)
+            input = torch.repeat_interleave(input, repeats=self.ef3, dim=3)
+            input = F.softmax(input, dim=1)
+            input2 = input2.unsqueeze(dim=2)
+            input2 = torch.repeat_interleave(input2, repeats=self.ef1, dim=2)
 
-        input = input.unsqueeze(dim=3)
-        input = torch.repeat_interleave(input, repeats=self.ef3, dim=3)
-        input = F.softmax(input, dim=1)
-        input2 = input2.unsqueeze(dim=2)
-        input2 = torch.repeat_interleave(input2, repeats=self.ef1, dim=2)
 
         outputs = input * input2
 
@@ -122,7 +134,7 @@ class TargetModel_CRF(nn.Module):
 
         self.num_classes = 20
         self.max_len = config1['max_text_len']
-
+        self.attention = config1['attention']
         self.embedding = nn.Embedding(num_embeddings=config['vocab_size'], embedding_dim=config['embedding_size'])
 
         self.ef1 = 256
